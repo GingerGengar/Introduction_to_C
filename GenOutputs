@@ -1,0 +1,60 @@
+#!/bin/bash
+
+cd Programming
+
+echo "Generating Outputs for Hello_World..."
+gcc Hello_World.c && ./a.out > Results/Hello_World.tex
+
+echo "Generating Outputs for Integer_Printing..."
+gcc Integer_Printing.c && ./a.out > Results/Integer_Printing.tex
+
+echo "Generating Outputs for Floating_Point_Printing..."
+gcc Floating_Point_Printing.c && ./a.out > Results/Floating_Point_Printing.tex
+
+echo "Generating Outputs for Pre_Processed_Directives..."
+gcc Pre_Processed_Directives.c && ./a.out > Results/Pre_Processed_Directives.tex
+
+echo "Generating Outputs for Variable_Initialization..."
+gcc Variable_Initialization.c && ./a.out > Results/Variable_Initialization.tex
+
+echo "Generating Outputs for Functions..."
+gcc Functions.c && ./a.out > Results/Functions.tex
+
+echo "Generating Outputs for Global_Variables_Read..."
+gcc Global_Variables_Read.c && ./a.out > Results/Global_Variables_Read.tex
+
+echo "Generating Outputs for Global_Variables_Writing..."
+gcc Global_Variables_Writing.c && ./a.out > Results/Global_Variables_Writing.tex
+
+echo "Generating Outputs for Intro_To_Conditionals..."
+gcc Intro_To_Conditionals.c && ./a.out > Results/Intro_To_Conditionals.tex
+
+echo "Generating Outputs for Basic_If_Statement_True..."
+gcc Basic_If_Statement_True.c && ./a.out > Results/Basic_If_Statement_True.tex
+
+echo "Generating Outputs for Basic_If_Statement_False..."
+gcc Basic_If_Statement_False.c && ./a.out > Results/Basic_If_Statement_False.tex
+
+echo "Generating Outputs for Conditionals_else_if..."
+gcc Conditionals_else_if.c && ./a.out > Results/Conditionals_else_if.tex
+
+echo "Generating Outputs for While_loops..."
+gcc While_loops.c && ./a.out > Results/While_loops.tex
+
+echo "Generating Outputs for For_Loops..."
+gcc For_Loops.c && ./a.out > Results/For_Loops.tex
+
+echo "Generating Outputs for pointers_pt1..."
+gcc pointers_pt1.c && ./a.out > Results/pointers_pt1.tex
+
+echo "Generating Outputs for pointers_pt2..."
+gcc pointers_pt2.c && ./a.out > Results/pointers_pt2.tex
+
+echo "Generating Outputs for pointers_pt3..."
+gcc pointers_pt3.c && ./a.out > Results/pointers_pt3.tex
+
+echo "Generating Outputs for pointers_pt4..."
+gcc pointers_pt4.c && ./a.out > Results/pointers_pt4.tex
+
+#echo "Generating Outputs for subs..."
+#gcc subs.c && ./a.out > Results/subs.tex

@@ -1,0 +1,433 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage{amsmath}
+\usepackage{esint}
+\usepackage{comment}
+\usepackage{amssymb}
+\usepackage{commath}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{float}
+
+\geometry{portrait, margin= 0.5in}
+\setcounter{MaxMatrixCols}{30}
+
+\def\tabsize{2.4cm}
+\def\ltabsize{5.1cm}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    columns=fullflexible,
+    frame=single,
+    breaklines=true,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    keepspaces=true,                 
+    numbersep=5pt,                  
+    showspaces=false,               
+    showtabs=false,                  
+    tabsize=2,
+    showstringspaces=false,
+}
+
+\title{Engineer's Introduction to C Programming}
+\author{Ginger Gengar}
+\date{$20^{\text{th}}$ October 2022}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\begin{center}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\section{Getting Started}
+\begin{comment}
+\end{comment}
+Why bother learning \texttt{C}? \texttt{C} seems increidbly hard at first compared to other "higher-level" languages like \texttt{Python} but \texttt{C} is much much "closer" to the machine than \texttt{Python} would be.
+\texttt{C} is a low-level language, which means that it doesn't take too much translations to convert \texttt{C} code into machine instructions.
+This makes \texttt{C} incredibly fast and also gives the programmer low-level control over the hardware.
+This gives \texttt{C} a few important applications:
+\begin{enumerate}
+\item Mathematical Libraries: These applications are typically used in the context of massive simulations in many engineering disciplines like structures and fluid mechanics which are often very very large projects.
+The fundamental mathematical libraries like linear algebra matrix decompositions or finding eigenvalue-eigenvectors of large matrices need to be done as fast as possible because any incremental time savings would save hours of computation and alot of money in terms of electricity and computational costs.
+\item Physics Solvers: We are talking about all kinds of problems like computational fluid dynamics and finite element analysis where we are no longer just interested in single-threaded programs but parallel programs.
+\texttt{C} gives alot of control on building parallel programs and makes it possible to write computer programs that can take advantage of large servers with thousands of threads.
+This is important because all of those problems are typically incredibly rescource intensive and an efficient language like \texttt{C} helps with improving our capabilities in solving these problems.
+\item Embedded Devices: \texttt{C} gives us low-level control over computer rescources and is also a very computationally efficient language making it perfect for small devices that don't have alot of computational power and also need to access very low-level hardware like actuators and servos.
+This makes \texttt{C} the perfect language for robotics and its various applications.
+
+\item Computer Graphics: Alot of things like rotation, ray-tracing in computer animations are extremely rescource intensive.
+Using a language like \texttt{C} allows the applications to run faster and smoother.
+\end{enumerate}
+The list given above is not exhaustive: there are still many great applications out there for \texttt{C}.
+Those are just the ones that I happen to be aware about \texttt{C}.
+The point is that \texttt{C} is a fast language and gives us low-level control, so it will be relevant in applications where speed is important or interfacing to hardware is important.
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Hello\_World Program}
+\begin{comment}
+\end{comment}
+This is arguably the simplest \texttt{C} program that anyone can write. 
+This is typically the very first program most people would start writing.
+We have a declaration of the main function which is what \texttt{C} would execute.
+We have a statement \texttt{\#include <stdio.h>} which is basically a way to use libraries.
+In our case, we are using the standard input output library which allows us to print things into the terminal console.
+Inside this main function, we have a simple command to print "Hello World!". 
+The \texttt{\\n} character means newline which is skip a line.
+\lstinputlisting[language=C]{Programming/Hello_World.c}
+$$$$
+To run a \texttt{C} program, we need to first compile the program. 
+We can use \texttt{gcc} which is a famous \texttt{C} compiler for that. 
+Let us try compiling our file which is named \texttt{Hello\_World.c} ,
+\begin{lstlisting}[language=Bash]
+gcc Hello_World.c
+\end{lstlisting}
+After we have succesfully compiled our program, we need to be able to run the program.
+To do that, we just have to call the produced library \texttt{a.out},
+\begin{lstlisting}[language=Bash]
+./a.out
+\end{lstlisting}
+$$$$
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Hello_World.tex}
+
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Printing Integers}
+\begin{comment}
+\end{comment}
+After printing text, the next phase is to print numbers. 
+In \texttt{C} an many other popular programming languages, there is a distinction between integers and floating points.
+When we print an integer, like $3$ in this case, we need to use what is called a format specifier.
+In the example below, \texttt{\%d} is a format specifier.
+It tells \texttt{C} where the next input argument should be inserted into the string.
+So we have the line \texttt{printf("Printing an integer: \%d\textbackslash n", 3);}. 
+The first input argument to \texttt{printf} is the string \texttt{"Printing an integer: \%d\textbackslash n"}.
+When \texttt{C} encounters the format specifier \texttt{\%d}, \texttt{C} would look at the next input argument to \texttt{printf}  which is $3$.
+The next input argument \texttt{3} is indeed an integer and so  \texttt{C} would print the number $3$ exactly at the location of the format specifier \texttt{\%d}.
+This means that the program would print something like "Printing an integer: 3" followed by a newline character.
+\lstinputlisting[language=C]{Programming/Integer_Printing.c}
+The result of running the \texttt{C} program is shown below,
+\lstinputlisting{Programming/Results/Integer_Printing.tex}
+Now we know how to print integers using the format specifier \texttt{\%d}.
+We had to be explicit and verbose in telling \texttt{C} we want to print an integer. 
+Why don't you try changing the integer number $3$ in the example above into a floating number $3.0$ and see what \texttt{C} would print out.
+
+%Seperator
+%Seperator
+%Seperator
+\subsubsection{Printing Floating Numbers}
+\begin{comment}
+\end{comment}
+We are now going to demonstrate that we can print a floating number using the \texttt{\%lf} format specifier. 
+We can also print multiple integers and floating numbers all in a single call to \texttt{printf}. 
+\texttt{printf} is what is known as a "variadic" function which means that it can take different numbers of input arguments. 
+Sometimes \texttt{printf} can take $1$ input argument, other times $2$ or $10$, and it will work just as fine. 
+From the example below, we should be able to tell how the format specifiers tell specifically where the next input arguments to \texttt{printf} would occur inside the string.
+\lstinputlisting[language=C]{Programming/Floating_Point_Printing.c}
+$$$$
+The result of running the \texttt{C} program above is shown below
+\lstinputlisting{Programming/Results/Floating_Point_Printing.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Pre-Processed Directives}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/Pre_Processed_Directives.c}
+The result of running the \texttt{C} program is shown below,
+\lstinputlisting{Programming/Results/Pre_Processed_Directives.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Variable Declarations \& Initializations}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/Variable_Initialization.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Variable_Initialization.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Declaring and Using Functions}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/Functions.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Functions.tex}
+
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\section{Global Variables}
+\begin{comment}
+\end{comment}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Purely Reading Global Variables}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/Global_Variables_Read.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Global_Variables_Read.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Reading and Writing to Global Variables}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/Global_Variables_Writing.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Global_Variables_Writing.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\section{Conditional Statements}
+\begin{comment}
+\end{comment}
+When we write computer programs, sometimes we want the computer program to behave differently if we give different inputs. 
+For example, if we are writing a \texttt{C} program to solve a quadratic equation, we might want our \texttt{C} program to behave differently if we have real roots compared to when we have complex roots.
+If we are writing a program for a small robot, perhaps we want it to make a decision and behave differently if it finds itself in different environments.
+That is why we need conditionals. Conditionals allow us to execute parts of our program selectively based on inputs that are determined while the program is running live.
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Introduction}
+\begin{comment}
+\end{comment}
+We need to introduce a new dataype called booleans.
+Booleans are datatypes that contain either true or false.
+Now \texttt{C} can interpret integers as booleans and vice versa.
+%Seperator
+\\~\\If we have an integer that contains the number $0$, then \texttt{C} can interpret this integer as a boolean that contains false.
+If we have an integer that contains a non-zero number, then \texttt{C} can interpret that integer as a boolean that contains true.
+%Seperator
+\\~\\If we have a boolean that contains true, then \texttt{C} can interpret that boolean as an integer that contains $1$.
+If we have a boolean that contains false, then \texttt{C} can interpret that boolean as an integer that contains $0$.
+%Seperator
+\\~\\Now we have to discuss the numerical boolean operators. These are operators like \texttt{==}, \texttt{<} , and \texttt{>}.
+These kind of work the way you would expect, so the \texttt{==} operator is used to compare between $2$ numbers.
+If we have $2$ numbers which are the same like \texttt{2==2}, then we would get true.
+If the numbers are different and we use the \texttt{==} operator, we would get false. 
+For example, \texttt{1==2} would evaluate to false.
+The \texttt{<} operator us less than.
+%Seperator
+\\~\\Now we have to discuss the logical boolean operators.
+We have shown $3$ common logical operators which is the logical AND (\texttt{\&\&}), the logical OR (\texttt{||}) , and the logical NOT (\texttt{!}).
+%Seperator
+\\~\\The \texttt{C} program below demonstrates some of the concepts discussed above.
+\lstinputlisting[language=C]{Programming/Intro_To_Conditionals.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Intro_To_Conditionals.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Basic If Statements}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/Basic_If_Statement_True.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Basic_If_Statement_True.tex}
+Alternatively, we can set the boolean to false,
+\lstinputlisting[language=C]{Programming/Basic_If_Statement_False.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Basic_If_Statement_False.tex}
+
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Nested Else If Statements}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/Conditionals_else_if.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/Conditionals_else_if.tex}
+Why don't you try changing the value of the variable \texttt{option}. 
+You will find that as you change the variable \texttt{option}, different parts of the code will execute and we will get different print messages.
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\section{Looping}
+\begin{comment}
+\end{comment}
+The way looping works typically is that the \texttt{C} program will check if a certain condition is true, and if it is true, then it will execute the body of a loop.
+After it reaches the end of the loop's body, it will recheck if that condition is true or not, again. 
+If that condition is still true, then \texttt{C} would execute the body of the loop again.
+After it has reached the end of the loop's body it will recheck that condition. 
+This process will keep executing until eventually the condition becomes false and that is where \texttt{C} would no longer execute the body of the loop. 
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{While Loops}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/While_loops.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/While_loops.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{For Loops}
+\begin{comment}
+\end{comment}
+It is kind of tedious to write loops using the \texttt{while} keyword. 
+So the \texttt{for} loop is implemented to make it more convenient to declare common \texttt{while} loop arrangements.
+\lstinputlisting[language=C]{Programming/For_Loops.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/For_Loops.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\section{Pointers and Addresses}
+\begin{comment}
+\end{comment}
+When we declare and initialize a single variable in a computer program, there are $2$ values that we can asociate to the variable.
+The first is the value inside the variable itself.
+The second is the location of where the variable is stored in the computer memory, this can be represented as some garbage integer.
+It is important to learn about pointers when we start dealing with arrays because of how similar arrays are to pointers.
+When we start using arrays and want to make functions that operate on arrays, we definitely must use pointers.
+%Seperator
+\\~\\Now a pointer is a variable that holds an address.
+This pointer that holds an address can be given the address of a separate variable.
+A pointer can be used to change values in memory.
+This all sounds abstract, but hopefully would be a little clearer by the end of these examples.
+
+
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Declaring, Setting, \& Using Pointers}
+\begin{comment}
+\end{comment}
+Now the small \texttt{C} program below demonstrates the basics of how to use a pointer.
+We need to introduce $2$ new operators, which is the \texttt{*}  operator and the \texttt{\&} operator.
+Earlier, we mentioned that a pointer holds the value of an address. 
+The way we "extract" the value of an address from a variable is to use the \texttt{\&} operator.
+If we call the \texttt{\&} operator on a variable named \texttt{var}  like \texttt{\&var}, then we get the location of where \texttt{var} is stored in computer memory.
+Now supposing we already have a pointer that contains the address of another variable, we can use the \texttt{*} operator to tell \texttt{C} to use the value found at the memory address contained inside the pointer.
+So if we have a pointer named \texttt{ptr} and it contains the address of variable \texttt{var}, then \texttt{*ptr} would mean the value of \texttt{var}.
+This is all demonstrated in the example below,
+\lstinputlisting[language=C]{Programming/pointers_pt1.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/pointers_pt1.tex}
+Let us analyze the output of running the program.
+We declared and initialized \texttt{soap} to be an integer that contains $1$ so when we print the value of \texttt{soap}, the program will print $1$.
+We then printed the memory address of the variable \texttt{soap}, which is a long list of integer.
+Now this memory address is just the location of where the variable \texttt{soap} is stored in computer memory.
+We then printed just the value contained inside the \texttt{pointer\_to\_soap} wherein we have set that pointer to contain the address of the variable \texttt{soap}.
+So we can verify that indeed \texttt{pointer\_to\_soap} contains the memory of the variable \texttt{soap}.
+After that, we are demonstrating that when we use \texttt{*} operator on \texttt{pointer\_to\_soap}, we succesfully got the value contained inside the computer memory that \texttt{pointer\_to\_soap} has.
+Since \texttt{pointer\_to\_soap} contains the memory address of the variable \texttt{soap} and \texttt{soap} contains value of $1$, we succesfully printed $1$ correctly.
+I hope it is clearer what the basic principles of pointers are.
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Passing Pointers to Functions}
+\begin{comment}
+\end{comment}
+Now here we are going to introduce the syntax of using pointers as input parameters to a function.
+This is useful when we are writing functions that modify arrays, more detail would be explained later. 
+So we made the function \texttt{add1} accept an integer pointer.
+Within \texttt{Main}, we then passed the address of \texttt{soap} into function \texttt{add1}. 
+The variable \texttt{integer\_pointer} is a local variable within the function \texttt{add1}, and its value was initialized to the address of the variable \texttt{soap}.
+Since \texttt{Main} has not finished executing when the function \texttt{add1} was called, the variable \texttt{soap} still exists in computer memory, so we can still use the memory location of the variable \texttt{soap} without worrying that it contains garbage values.
+Remember that \texttt{integer\_pointer} now contains the address of \texttt{soap}, so when we use the \texttt{*} operator to do \texttt{*integer\_pointer = *integer\_pointer+1;} we are actually changing the value of \texttt{soap}. 
+This means that when we pass pointers as parameters to some function named function1, we can change variables that are declared outside of function1, as we have done in this example.
+In our case, we are using the function \texttt{add1} to modify a variable named \texttt{soap} that is declared not in \texttt{add1}, but instead in \texttt{main}.
+\lstinputlisting[language=C]{Programming/pointers_pt2.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/pointers_pt2.tex}
+Let us analyze the output of this program.
+We declared and then initialized the variable \texttt{soap} to initially contain $1$ inside main, so when we print the value of \texttt{soap} we shouldn't be surprised that we got $1$.
+We then called \texttt{add1} passing the address of \texttt{soap}. 
+The local variable within \texttt{add1} named \texttt{integer\_pointer} is now initialized with the address of variable \texttt{soap} and changed \texttt{soap}'s value to $2$.
+The function \texttt{add1} finished executing and we go back to \texttt{main}. 
+Within \texttt{main}, the variable \texttt{soap} now no longer contains $1$.
+It contains $2$ because \texttt{add1} has changed the \texttt{soap}'s value in main.
+Therefore, when we print the variable \texttt{soap} within \texttt{main}, we get the value of $2$ and no longer $1$.
+This demonstrates that a function can modify variables that are declared elsewhere as long as pointers were used.
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Array-Pointers Similarities}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/pointers_pt3.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/pointers_pt3.tex}
+
+%Seperator
+%Seperator
+%Seperator
+%Seperator
+\subsection{Acessing adjacent Memories for Pointers}
+\begin{comment}
+\end{comment}
+\lstinputlisting[language=C]{Programming/pointers_pt4.c}
+The result of running the \texttt{C} program above is shown below,
+\lstinputlisting{Programming/Results/pointers_pt4.tex}
+
+\end{center}
+\end{document}
